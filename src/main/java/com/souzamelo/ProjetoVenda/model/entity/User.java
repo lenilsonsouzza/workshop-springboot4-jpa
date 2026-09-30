@@ -1,10 +1,14 @@
 package com.souzamelo.ProjetoVenda.model.entity;
 
-import java.io.Serializable;
-import java.security.SecureRandom;
-import java.util.Objects;
+import jakarta.persistence.*;
 
+import java.io.Serializable;
+import java.util.Objects;
+@Entity
+@Table(name = "tb_user")
 public class User implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
     private String email;
