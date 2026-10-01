@@ -3,8 +3,6 @@ package com.souzamelo.ProjetoVenda.services;
 import com.souzamelo.ProjetoVenda.model.entity.User;
 import com.souzamelo.ProjetoVenda.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
