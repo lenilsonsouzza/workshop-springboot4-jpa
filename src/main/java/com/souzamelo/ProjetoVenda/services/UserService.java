@@ -2,6 +2,7 @@ package com.souzamelo.ProjetoVenda.services;
 
 import com.souzamelo.ProjetoVenda.model.entity.User;
 import com.souzamelo.ProjetoVenda.repositories.UserRepository;
+import com.souzamelo.ProjetoVenda.services.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class UserService {
 
     public User findbyId(Long id) {
         Optional<User> obj = repository.findById(id);
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public  User insert(User obj) {
