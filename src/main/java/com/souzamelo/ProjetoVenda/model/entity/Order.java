@@ -17,27 +17,27 @@ public class Order implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Long id;
+    private Long id;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-mm-dd'T'HH:mm:ss'Z'",timezone = "GMT")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-mm-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant moment;
 
-    private  Integer orderStatus;
+    private Integer orderStatus;
     @ManyToOne
     @JoinColumn(name = "client_id")
     private User client;
 
 
-    @OneToMany(mappedBy =  "id.order")
+    @OneToMany(mappedBy = "id.order")
     private Set<OrderItem> items = new HashSet<>();
 
-    @OneToOne(mappedBy = "order",cascade = CascadeType.ALL)
-    private  Payment payment;
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private Payment payment;
 
-    public Order(){
+    public Order() {
     }
 
-    public Order(Long id, Instant moment,OrderStatus orderStatus,User client) {
+    public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
         this.id = id;
         this.moment = moment;
         setOrderStatus(orderStatus);
@@ -65,7 +65,7 @@ public class Order implements Serializable {
     }
 
     public void setOrderStatus(OrderStatus orderStatus) {
-        if(orderStatus != null) {
+        if (orderStatus != null) {
             this.orderStatus = orderStatus.getCod();
         }
 
@@ -78,7 +78,8 @@ public class Order implements Serializable {
     public void setClient(User client) {
         this.client = client;
     }
-    public  Set<OrderItem> getItems(){
+
+    public Set<OrderItem> getItems() {
         return items;
     }
 
@@ -88,6 +89,14 @@ public class Order implements Serializable {
 
     public void setPayment(Payment payment) {
         this.payment = payment;
+    }
+
+    public Double getTotal() {
+        double sum = 0.0;
+        for (OrderItem x : items) {
+            sum += x.getSubTotal();
+        }
+        return sum;
     }
 
     @Override
